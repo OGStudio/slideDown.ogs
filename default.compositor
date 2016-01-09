@@ -1,0 +1,14 @@
+template
+    main
+        texture = textureTemplate
+material
+    main
+        plain
+            diffuse = pipeline/textures/track_tex.png
+            normal  = pipeline/textures/plain_n.png
+        holes
+            diffuse = pipeline/textures/track_tex.png
+            normal  = pipeline/textures/holes_n.png
+        ball
+            diffuse = pipeline/textures/ball_tex.png
+            normal  = pipeline/textures/ball_n.png

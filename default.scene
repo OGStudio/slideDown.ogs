@@ -1,0 +1,134 @@
+
+node
+    default
+        light
+            parent = ROOT
+            position = 0.000000 -15.000000 15.000000
+            light = default
+        camera
+            parent = ROOT
+            position = 8.490590 -15.446904 8.995343
+            rotation = 53.700035 0.000000 397.100159
+            script = scripts/CameraSync.py
+        ball
+            parent = ROOT
+            position = 0.000000 0.000000 1.000000
+            material = ball
+            model = models/ball.osgt
+        trackLevel1
+            parent = ROOT
+        level10
+            parent = trackLevel1
+        track101
+            parent = level10
+            material = plain
+            model = models/plain.osgt
+        track102
+            parent = level10
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+        level11
+            parent = trackLevel1
+            position = -5.500000 -0.500000 -0.800000
+            rotation = 0.000000 0.000000 90.000000
+        track111
+            parent = level11
+            material = plain
+            model = models/plain.osgt
+        track112
+            parent = level11
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+        level12
+            parent = trackLevel1
+            position = -5.000000 -6.000000 -1.600000
+            rotation = 0.000000 0.000000 180.000000
+        track121
+            parent = level12
+            material = plain
+            model = models/plain.osgt
+        track122
+            parent = level12
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+        level13
+            parent = trackLevel1
+            position = 0.500000 -5.500000 -2.400000
+            rotation = 0.000000 0.000000 -90.000000
+        track131
+            parent = level13
+            material = plain
+            model = models/plain.osgt
+        track132
+            parent = level13
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+        trackLevel2
+            parent = ROOT
+            position = 0.000000 0.000000 -3.200000
+        c-level10-1241998584
+            parent = trackLevel2
+            selectable = 1
+        c-track101-1675270980
+            parent = c-level10-1241998584
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        c-track102-785417520
+            parent = c-level10-1241998584
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+            selectable = 1
+        c-level11-2144928540
+            parent = trackLevel2
+            position = -5.500000 -0.500000 -0.800000
+            rotation = 0.000000 0.000000 90.000000
+            selectable = 1
+        c-track111-2000687604
+            parent = c-level11-2144928540
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        c-track112-1039107044
+            parent = c-level11-2144928540
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+            selectable = 1
+        c-level12-780973224
+            parent = trackLevel2
+            position = -5.000000 -6.000000 -1.600000
+            rotation = 0.000000 0.000000 180.000000
+            selectable = 1
+        c-track121-2998305996
+            parent = c-level12-780973224
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        c-track122-2408134316
+            parent = c-level12-780973224
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+            selectable = 1
+        c-level13-44496500
+            parent = trackLevel2
+            position = 0.500000 -5.500000 -2.400000
+            rotation = 0.000000 0.000000 -90.000000
+            selectable = 1
+        c-track131-418196624
+            parent = c-level13-44496500
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        c-track132-3889774120
+            parent = c-level13-44496500
+            position = -3.000000 0.000000 -0.400000
+            material = holes
+            model = models/holes.osgt
+            selectable = 1
