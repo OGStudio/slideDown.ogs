@@ -2,14 +2,28 @@ move
     default
         moveTopForward
             point = 0 0 0 0
-            point = 2000 -0.5 0 0
+            point = 1000 -0.5 0 0
+        moveTopSlide
+            point = 0 0 0 0
+            point = 5000 -2 0 -0.4
 rotate
     default
         rotateTopForward
             point = 0 0 0 0
-            point = 2000 0 -90 0
+            point = 1000 0 -95 0
+        rotateTopSlide
+            point = 0 0 0 0
+            point = 5000 0 -475 0
 spawn
     default
         topForward
             action = move.moveTopForward
             action = rotate.rotateTopForward
+        topSlide
+            action = move.moveTopSlide
+            action = rotate.rotateTopSlide
+sequence
+    default
+        top
+            action = spawn.topForward
+            action = spawn.topSlide
