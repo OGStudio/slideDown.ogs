@@ -2,7 +2,7 @@
 from pymjin2 import *
 
 BALL_TYPE               = "ball"
-BALL_ACTION_TOP_FORWARD = "move.default.moveTopForward"
+BALL_ACTION_TOP_FORWARD = "spawn.default.topForward"
 
 class BallImpl(object):
     def __init__(self, client):

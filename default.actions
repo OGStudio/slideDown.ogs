@@ -7,17 +7,9 @@ rotate
     default
         rotateTopForward
             point = 0 0 0 0
-            point = 2000 45 0 0
-delay
+            point = 2000 0 -90 0
+spawn
     default
-        waitForLeverage
-            delay = 2500
-sequence
-    default
-        popTarget
-            action = move.liftTarget
-            action = delay.waitForLeverage
-            action = move.lowerTarget
-        catchTarget
-            action = lowerLeverage
-            action = liftLeverage
+        topForward
+            action = move.moveTopForward
+            action = rotate.rotateTopForward
