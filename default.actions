@@ -1,27 +1,13 @@
 move
     default
-        liftTarget
+        moveTopForward
             point = 0 0 0 0
-            point = 3000 0 0 0.5
-        lowerTarget
-            point = 0 0 0 0
-            point = 3000 0 0 -0.5
+            point = 2000 -0.5 0 0
 rotate
     default
-        lowerLeverage
+        rotateTopForward
             point = 0 0 0 0
-            point = 1500 90 0 0
-        liftLeverage
-            point = 0 0 0 0
-            point = 1500 -90 0 0
-        tickLeverage
-            relative = 0
-            point = 500 0 0 -20
-            point = 500 0 0 20
-        rotateTarget
-            point = 0 0 0 0
-            point = 2000 0 0 360
-            point = 2000 0 0 0
+            point = 2000 45 0 0
 delay
     default
         waitForLeverage
