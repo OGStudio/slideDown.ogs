@@ -3,6 +3,7 @@ from pymjin2 import *
 
 BALL_TYPE         = "ball"
 BALL_ACTION_TRACK = "sequence.default.track"
+BALL_SOUND        = "soundBuffer.default.rolling"
 
 class BallImpl(object):
     def __init__(self, client):
@@ -15,10 +16,12 @@ class BallImpl(object):
         self.c = None
     def onFinish(self, key, value):
         self.isMoving = False
+        self.c.set("$SOUND.state", "stop")
         self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
     def setMoving(self, key, value):
         self.isMoving = True
         self.c.set("$TRACK.$SCENE.$NODE.active", "1")
+        self.c.set("$SOUND.state", "play")
 
 class Ball(object):
     def __init__(self, sceneName, nodeName, env):
@@ -31,6 +34,7 @@ class Ball(object):
         self.c.setConst("SCENE", sceneName)
         self.c.setConst("NODE",  nodeName)
         self.c.setConst("TRACK", BALL_ACTION_TRACK)
+        self.c.setConst("SOUND", BALL_SOUND)
         # Provide "moving".
         self.c.provide("$TYPE.$SCENE.$NODE.moving", self.impl.setMoving)
         # Listen to action to report 'moving' finish.

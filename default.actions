@@ -2,24 +2,24 @@ move
     default
         moveTopForward
             point = 0 0 0 0
-            point = 500 -0.5 0 0
+            point = 400 -0.5 0 0
         moveSlide
             point = 0 0 0 0
-            point = 2500 -2 0 -0.4
+            point = 2000 -2 0 -0.4
         moveBottomForward
             point = 0 0 0 0
-            point = 1000 -1 0 0
+            point = 800 -1 0 0
 rotate
     default
         rotateTopForward
             point = 0 0 0 0
-            point = 500 0 -95 0
+            point = 400 0 -95 0
         rotateSlide
             point = 0 0 0 0
-            point = 2500 0 -475 0
+            point = 2000 0 -475 0
         rotateBottomForward
             point = 0 0 0 0
-            point = 1000 0 -190 0
+            point = 800 0 -190 0
 spawn
     default
         topForward
