@@ -8,8 +8,8 @@ node
             script = scripts/Main.py
         camera
             parent = ROOT
-            position = -0.545265 -19.226202 7.128728
-            rotation = 58.600033 0.000000 5.699963
+            position = 4.846972 -16.896263 6.681374
+            rotation = 56.300056 0.000000 28.499979
             script = scripts/CameraSync.py
         ball
             parent = ROOT
