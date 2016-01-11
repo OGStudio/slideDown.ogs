@@ -8,8 +8,8 @@ node
             script = scripts/Main.py
         camera
             parent = ROOT
-            position = -2.645268 -7.609298 1.567904
-            rotation = 79.500099 0.000000 -2.300038
+            position = -0.545265 -19.226202 7.128728
+            rotation = 58.600033 0.000000 5.699963
             script = scripts/CameraSync.py
         ball
             parent = ROOT
@@ -19,117 +19,113 @@ node
             script = scripts/Ball.py
         trackLevel1
             parent = ROOT
-        level10
+        level1
             parent = trackLevel1
         track101
-            parent = level10
+            parent = level1
             material = plain
             model = models/plain.osgt
         track102
-            parent = level10
+            parent = level1
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
-        level11
+        level2
             parent = trackLevel1
             position = -5.500000 -0.500000 -0.800000
             rotation = 0.000000 0.000000 90.000000
         track111
-            parent = level11
+            parent = level2
             material = plain
             model = models/plain.osgt
         track112
-            parent = level11
+            parent = level2
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
-        level12
+        level3
             parent = trackLevel1
             position = -5.000000 -6.000000 -1.600000
             rotation = 0.000000 0.000000 180.000000
         track121
-            parent = level12
+            parent = level3
             material = plain
             model = models/plain.osgt
         track122
-            parent = level12
+            parent = level3
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
-        level13
+        level4
             parent = trackLevel1
             position = 0.500000 -5.500000 -2.400000
             rotation = 0.000000 0.000000 -90.000000
         track131
-            parent = level13
+            parent = level4
             material = plain
             model = models/plain.osgt
         track132
-            parent = level13
+            parent = level4
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
         trackLevel2
             parent = ROOT
             position = 0.000000 0.000000 -3.200000
-        c-level10-1241998584
+        level5
             parent = trackLevel2
-            selectable = 1
         c-track101-1675270980
-            parent = c-level10-1241998584
+            parent = level5
             material = plain
             model = models/plain.osgt
             selectable = 1
         c-track102-785417520
-            parent = c-level10-1241998584
+            parent = level5
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
             selectable = 1
-        c-level11-2144928540
+        level6
             parent = trackLevel2
             position = -5.500000 -0.500000 -0.800000
             rotation = 0.000000 0.000000 90.000000
-            selectable = 1
         c-track111-2000687604
-            parent = c-level11-2144928540
+            parent = level6
             material = plain
             model = models/plain.osgt
             selectable = 1
         c-track112-1039107044
-            parent = c-level11-2144928540
+            parent = level6
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
             selectable = 1
-        c-level12-780973224
+        level7
             parent = trackLevel2
             position = -5.000000 -6.000000 -1.600000
             rotation = 0.000000 0.000000 180.000000
-            selectable = 1
         c-track121-2998305996
-            parent = c-level12-780973224
+            parent = level7
             material = plain
             model = models/plain.osgt
             selectable = 1
         c-track122-2408134316
-            parent = c-level12-780973224
+            parent = level7
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
             selectable = 1
-        c-level13-44496500
+        level8
             parent = trackLevel2
             position = 0.500000 -5.500000 -2.400000
             rotation = 0.000000 0.000000 -90.000000
-            selectable = 1
         c-track131-418196624
-            parent = c-level13-44496500
+            parent = level8
             material = plain
             model = models/plain.osgt
             selectable = 1
         c-track132-3889774120
-            parent = c-level13-44496500
+            parent = level8
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt

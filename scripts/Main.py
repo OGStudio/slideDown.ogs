@@ -1,20 +1,37 @@
 
 from pymjin2 import *
 
-MAIN_BALL_NAME = "ball"
+MAIN_BALL_NAME  = "ball"
+MAIN_LEVEL_NAME = "level"
+MAIN_LEVELS_NB  = 8
 
 class MainImpl(object):
     def __init__(self, client):
         # Refer.
         self.c = client
+        # Create.
+        self.currentLevel  = None
+        self.intialBallPos = None
     def __del__(self):
         # Derefer.
         self.c = None
+    def onBallStopped(self, key, value):
+        print "Ball stopped"
+        self.step()
     def onFinishedLoading(self, key, value):
         print "Starting the game"
+        self.initialBallPos = self.c.get("node.$SCENE.$BALL.position")[0]
+        self.currentLevel = 0
         self.step()
     def step(self):
-        print "Moving the ball forward"
+        self.currentLevel = self.currentLevel + 1
+        if (self.currentLevel > MAIN_LEVELS_NB):
+            print "The ball has stopped, no more levels to go"
+            return
+        print "Moving the ball down the level", self.currentLevel
+        levelName = MAIN_LEVEL_NAME + str(self.currentLevel)
+        self.c.set("node.$SCENE.$BALL.parent",   levelName)
+        self.c.set("node.$SCENE.$BALL.position", self.initialBallPos)
         self.c.set("$BALL.$SCENE.$BALL.moving", "1")
 
 class Main(object):
@@ -27,6 +44,8 @@ class Main(object):
         self.c.setConst("SCENE", sceneName)
         # Listen to scene loading finish.
         self.c.listen("scene.opened", None, self.impl.onFinishedLoading)
+        # Listen to ball motion finish.
+        self.c.listen("$BALL.$SCENE.$BALL.moving", "0", self.impl.onBallStopped)
         print "{0} Main.__init__({1}, {2})".format(id(self), sceneName, nodeName)
     def __del__(self):
         # Tear down.
