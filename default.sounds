@@ -1,0 +1,5 @@
+soundBuffer
+    default
+        rolling
+            file = sounds/rolling_ball.ogg
+            loop = 1

@@ -5,11 +5,10 @@ node
             parent = ROOT
             position = 0.000000 -15.000000 15.000000
             light = default
-            script = scripts/Main.py
         camera
             parent = ROOT
-            position = 4.846972 -16.896263 6.681374
-            rotation = 56.300056 0.000000 28.499979
+            position = 3.179053 -19.330690 4.653551
+            rotation = 65.400223 0.000000 18.099953
             script = scripts/CameraSync.py
         ball
             parent = ROOT
@@ -130,3 +129,12 @@ node
             material = holes
             model = models/holes.osgt
             selectable = 1
+        vcBase
+            parent = ROOT
+            position = -2.500000 -3.000000 -2.500000
+            material = vcBase
+            model = models/vc_base.osgt
+        vc
+            parent = vcBase
+            material = vc
+            model = models/vc.osgt

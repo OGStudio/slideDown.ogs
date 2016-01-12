@@ -12,3 +12,9 @@ material
         ball
             diffuse = pipeline/textures/ball_tex.png
             normal  = pipeline/textures/ball_n.png
+        vc
+            diffuse = pipeline/textures/vc_tex.png
+            normal  = pipeline/textures/vc_n.png
+        vcBase
+            diffuse = pipeline/textures/vc_tex.png
+            normal  = pipeline/textures/vc_base_n.png
