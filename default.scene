@@ -5,6 +5,7 @@ node
             parent = ROOT
             position = 0.000000 -15.000000 15.000000
             light = default
+            script = scripts/Main.py
         camera
             parent = ROOT
             position = 3.179053 -19.330690 4.653551
@@ -24,11 +25,12 @@ node
             parent = level1
             material = plain
             model = models/plain.osgt
-        track102
+        track1
             parent = level1
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
+            selectable = 1
         level2
             parent = trackLevel1
             position = -5.500000 -0.500000 -0.800000
@@ -37,11 +39,12 @@ node
             parent = level2
             material = plain
             model = models/plain.osgt
-        track112
+        track2
             parent = level2
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
+            selectable = 1
         level3
             parent = trackLevel1
             position = -5.000000 -6.000000 -1.600000
@@ -50,11 +53,12 @@ node
             parent = level3
             material = plain
             model = models/plain.osgt
-        track122
+        track3
             parent = level3
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
+            selectable = 1
         level4
             parent = trackLevel1
             position = 0.500000 -5.500000 -2.400000
@@ -63,11 +67,12 @@ node
             parent = level4
             material = plain
             model = models/plain.osgt
-        track132
+        track4
             parent = level4
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
+            selectable = 1
         trackLevel2
             parent = ROOT
             position = 0.000000 0.000000 -3.200000
@@ -77,8 +82,7 @@ node
             parent = level5
             material = plain
             model = models/plain.osgt
-            selectable = 1
-        c-track102-785417520
+        track5
             parent = level5
             position = -3.000000 0.000000 -0.400000
             material = holes
@@ -92,8 +96,7 @@ node
             parent = level6
             material = plain
             model = models/plain.osgt
-            selectable = 1
-        c-track112-1039107044
+        track6
             parent = level6
             position = -3.000000 0.000000 -0.400000
             material = holes
@@ -107,8 +110,7 @@ node
             parent = level7
             material = plain
             model = models/plain.osgt
-            selectable = 1
-        c-track122-2408134316
+        track7
             parent = level7
             position = -3.000000 0.000000 -0.400000
             material = holes
@@ -122,8 +124,7 @@ node
             parent = level8
             material = plain
             model = models/plain.osgt
-            selectable = 1
-        c-track132-3889774120
+        track8
             parent = level8
             position = -3.000000 0.000000 -0.400000
             material = holes

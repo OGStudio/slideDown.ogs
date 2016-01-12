@@ -23,6 +23,8 @@ class MainImpl(object):
         self.initialBallPos = self.c.get("node.$SCENE.$BALL.position")[0]
         self.currentLevel = 0
         self.step()
+    def onTrackSelection(self, key, value):
+        print "onTrackSelection", key, value
     def step(self):
         self.currentLevel = self.currentLevel + 1
         if (self.currentLevel > MAIN_LEVELS_NB):
@@ -46,6 +48,8 @@ class Main(object):
         self.c.listen("scene.opened", None, self.impl.onFinishedLoading)
         # Listen to ball motion finish.
         self.c.listen("$BALL.$SCENE.$BALL.moving", "0", self.impl.onBallStopped)
+        # Listen to track selections.
+        self.c.listen("node.$SCENE..selected", "1", self.impl.onTrackSelection)
         print "{0} Main.__init__({1}, {2})".format(id(self), sceneName, nodeName)
     def __del__(self):
         # Tear down.
