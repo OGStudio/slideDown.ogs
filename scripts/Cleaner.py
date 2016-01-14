@@ -1,13 +1,14 @@
 
 from pymjin2 import *
 
-CLEANER_NAME          = "cleaner"
 CLEANER_ACTION        = "spawn.default.orientCleaner"
+CLEANER_ACTION_MOVE   = "move.default.moveCleaner"
 CLEANER_ACTION_ROTATE = "rotate.default.rotateCleaner"
+CLEANER_NAME          = "cleaner"
 CLEANER_SPEED         = "5000"
 #BALL_SOUND        = "soundBuffer.default.rolling"
 
-class CleanerBaseImpl(object):
+class CleanerImpl(object):
     def __init__(self, client):
         # Refer.
         self.c = client
@@ -31,25 +32,35 @@ class CleanerBaseImpl(object):
         print "setOrientation", key, value
         self.isMoving = True
         self.c.setConst("POINT", value[0])
+        # Position
         pos = self.c.get("node.$SCENE.$POINT.positionAbs")[0]
+        ppos = pos.split(" ")
+        pos = self.c.get("node.$SCENE.$CLEANER.position")[0]
+        cpos = pos.split(" ")
+        pos = " {0} {1} {2}".format(cpos[0], cpos[1], ppos[2])
+        print "finalPos", pos
+        # Rotation.
         rot = self.c.get("node.$SCENE.$POINT.rotationAbs")[0]
         # Setup action points.
         self.c.set("$ROTATE.point", CLEANER_SPEED + " " + rot)
+        # Only position height.
+        self.c.set("$MOVE.point",   CLEANER_SPEED + pos)
         # Start the action.
         self.c.set("$ORIENT.$SCENE.$NODE.active", "1")
         #self.c.set("$SOUND.state", "play")
 
-class CleanerBase(object):
+class Cleaner(object):
     def __init__(self, sceneName, nodeName, env):
         # Create.
-        name      = "CleanerBase/{0}/{1}".format(sceneName, nodeName)
+        name      = "Cleaner/{0}/{1}".format(sceneName, nodeName)
         self.c    = EnvironmentClient(env, name)
-        self.impl = CleanerBaseImpl(self.c)
+        self.impl = CleanerImpl(self.c)
         # Prepare.
         self.c.setConst("CLEANER", CLEANER_NAME)
         self.c.setConst("SCENE",   sceneName)
         self.c.setConst("NODE",    nodeName)
         self.c.setConst("ORIENT",  CLEANER_ACTION)
+        self.c.setConst("MOVE",    CLEANER_ACTION_MOVE)
         self.c.setConst("ROTATE",  CLEANER_ACTION_ROTATE)
         #self.c.setConst("SOUND", BALL_SOUND)
         # Provide "orientation".
@@ -65,7 +76,7 @@ class CleanerBase(object):
         del self.c
 
 def SCRIPT_CREATE(sceneName, nodeName, env):
-    return CleanerBase(sceneName, nodeName, env)
+    return Cleaner(sceneName, nodeName, env)
 
 def SCRIPT_DESTROY(instance):
     del instance

@@ -5,7 +5,6 @@ node
             parent = ROOT
             position = 0.000000 -15.000000 15.000000
             light = default
-            script = scripts/Main.py
         camera
             parent = ROOT
             position = 3.179053 -19.330690 4.653551
@@ -161,14 +160,15 @@ node
             parent = track8
             position = 0.500000 0.000000 0.500000
             selectable = 1
-        vcBase
+        cleanerBase
             parent = ROOT
-            position = -2.500000 -3.000000 -2.500000
-            material = vcBase
-            model = models/vc_base.osgt
-            script = scripts/CleanerBase.py
-        vc
-            parent = vcBase
-            rotation = 0.000000 0.000000 180.000000
-            material = vc
-            model = models/vc.osgt
+            position = -2.500000 -3.000000 -3.000000
+            material = cleanerBase
+            model = models/cleaner_base.osgt
+            selectable = 1
+        cleaner
+            parent = cleanerBase
+            material = cleaner
+            model = models/cleaner.osgt
+            script = scripts/Cleaner.py
+            selectable = 1

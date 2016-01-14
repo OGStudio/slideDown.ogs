@@ -9,6 +9,8 @@ move
         moveBottomForward
             point = 0 0 0 0
             point = 800 -1 0 0
+        moveCleaner
+            relative = 0
 rotate
     default
         rotateTopForward
@@ -34,6 +36,7 @@ spawn
             action = move.moveBottomForward
             action = rotate.rotateBottomForward
         orientCleaner
+            action = move.moveCleaner
             action = rotate.rotateCleaner
 sequence
     default
