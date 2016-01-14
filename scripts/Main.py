@@ -1,9 +1,12 @@
 
 from pymjin2 import *
 
-MAIN_BALL_NAME  = "ball"
-MAIN_LEVEL_NAME = "level"
-MAIN_LEVELS_NB  = 8
+MAIN_BALL_NAME    = "ball"
+MAIN_CLEANER_NAME = "cleaner"
+MAIN_LEVEL_NAME   = "level"
+MAIN_LEVELS_NB    = 8
+MAIN_POINT_NAME   = "point"
+MAIN_TRACK_NAME   = "track"
 
 class MainImpl(object):
     def __init__(self, client):
@@ -16,7 +19,6 @@ class MainImpl(object):
         # Derefer.
         self.c = None
     def onBallStopped(self, key, value):
-        print "Ball stopped"
         self.step()
     def onFinishedLoading(self, key, value):
         print "Starting the game"
@@ -24,13 +26,14 @@ class MainImpl(object):
         self.currentLevel = 0
         self.step()
     def onTrackSelection(self, key, value):
-        print "onTrackSelection", key, value
+        id = key[2].replace(MAIN_TRACK_NAME, "")
+        self.c.set("$CLEANER.$SCENE.$CLEANER.orientation", MAIN_POINT_NAME + id)
     def step(self):
         self.currentLevel = self.currentLevel + 1
         if (self.currentLevel > MAIN_LEVELS_NB):
             print "The ball has stopped, no more levels to go"
             return
-        print "Moving the ball down the level", self.currentLevel
+        #print "Moving the ball down the level", self.currentLevel
         levelName = MAIN_LEVEL_NAME + str(self.currentLevel)
         self.c.set("node.$SCENE.$BALL.parent",   levelName)
         self.c.set("node.$SCENE.$BALL.position", self.initialBallPos)
@@ -42,8 +45,9 @@ class Main(object):
         self.c    = EnvironmentClient(env, "Main")
         self.impl = MainImpl(self.c)
         # Prepare.
-        self.c.setConst("BALL",  MAIN_BALL_NAME)
-        self.c.setConst("SCENE", sceneName)
+        self.c.setConst("BALL",    MAIN_BALL_NAME)
+        self.c.setConst("CLEANER", MAIN_CLEANER_NAME)
+        self.c.setConst("SCENE",   sceneName)
         # Listen to scene loading finish.
         self.c.listen("scene.opened", None, self.impl.onFinishedLoading)
         # Listen to ball motion finish.

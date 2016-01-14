@@ -31,6 +31,9 @@ node
             material = holes
             model = models/holes.osgt
             selectable = 1
+        point1
+            parent = track1
+            position = 0.500000 0.000000 0.500000
         level2
             parent = trackLevel1
             position = -5.500000 -0.500000 -0.800000
@@ -44,6 +47,10 @@ node
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
+            selectable = 1
+        point2
+            parent = track2
+            position = 0.500000 0.000000 0.500000
             selectable = 1
         level3
             parent = trackLevel1
@@ -59,10 +66,14 @@ node
             material = holes
             model = models/holes.osgt
             selectable = 1
+        point3
+            parent = track3
+            position = 0.500000 0.000000 0.500000
+            selectable = 1
         level4
             parent = trackLevel1
             position = 0.500000 -5.500000 -2.400000
-            rotation = 0.000000 0.000000 -90.000000
+            rotation = 0.000000 0.000000 270.000000
         track131
             parent = level4
             material = plain
@@ -72,6 +83,10 @@ node
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
+            selectable = 1
+        point4
+            parent = track4
+            position = 0.500000 0.000000 0.500000
             selectable = 1
         trackLevel2
             parent = ROOT
@@ -88,6 +103,10 @@ node
             material = holes
             model = models/holes.osgt
             selectable = 1
+        point5
+            parent = track5
+            position = 0.500000 0.000000 0.500000
+            selectable = 1
         level6
             parent = trackLevel2
             position = -5.500000 -0.500000 -0.800000
@@ -101,6 +120,10 @@ node
             position = -3.000000 0.000000 -0.400000
             material = holes
             model = models/holes.osgt
+            selectable = 1
+        point6
+            parent = track6
+            position = 0.500000 0.000000 0.500000
             selectable = 1
         level7
             parent = trackLevel2
@@ -116,10 +139,14 @@ node
             material = holes
             model = models/holes.osgt
             selectable = 1
+        point7
+            parent = track7
+            position = 0.500000 0.000000 0.500000
+            selectable = 1
         level8
             parent = trackLevel2
             position = 0.500000 -5.500000 -2.400000
-            rotation = 0.000000 0.000000 -90.000000
+            rotation = 0.000000 0.000000 270.000000
         c-track131-418196624
             parent = level8
             material = plain
@@ -130,12 +157,18 @@ node
             material = holes
             model = models/holes.osgt
             selectable = 1
+        point8
+            parent = track8
+            position = 0.500000 0.000000 0.500000
+            selectable = 1
         vcBase
             parent = ROOT
             position = -2.500000 -3.000000 -2.500000
             material = vcBase
             model = models/vc_base.osgt
+            script = scripts/CleanerBase.py
         vc
             parent = vcBase
+            rotation = 0.000000 0.000000 180.000000
             material = vc
             model = models/vc.osgt
