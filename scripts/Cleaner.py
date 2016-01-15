@@ -37,6 +37,8 @@ class CleanerImpl(object):
         ppos = pos.split(" ")
         pos = self.c.get("node.$SCENE.$CLEANER.position")[0]
         cpos = pos.split(" ")
+        print "ppos", ppos
+        print "cpos", cpos
         pos = " {0} {1} {2}".format(cpos[0], cpos[1], ppos[2])
         print "finalPos", pos
         # Rotation.

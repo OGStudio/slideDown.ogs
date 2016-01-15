@@ -16,5 +16,5 @@ material
             diffuse = pipeline/textures/cleaner_tex.png
             normal  = pipeline/textures/cleaner_n.png
         cleanerBase
-            diffuse = pipeline/textures/cleaner_tex.png
+            diffuse = pipeline/textures/cleaner_base_tex.png
             normal  = pipeline/textures/cleaner_base_n.png

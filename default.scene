@@ -3,8 +3,9 @@ node
     default
         light
             parent = ROOT
-            position = 0.000000 -15.000000 15.000000
+            position = -10.000000 -20.000000 10.000000
             light = default
+            script = scripts/Main.py
         camera
             parent = ROOT
             position = 3.179053 -19.330690 4.653551
@@ -162,12 +163,13 @@ node
             selectable = 1
         cleanerBase
             parent = ROOT
-            position = -2.500000 -3.000000 -3.000000
+            position = -2.500000 -3.000000 -0.100000
             material = cleanerBase
             model = models/cleaner_base.osgt
             selectable = 1
         cleaner
             parent = cleanerBase
+            rotation = 0.000000 0.000000 145.000000
             material = cleaner
             model = models/cleaner.osgt
             script = scripts/Cleaner.py
