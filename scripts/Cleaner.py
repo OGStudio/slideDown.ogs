@@ -3,6 +3,7 @@ from pymjin2 import *
 
 CLEANER_ACTION        = "sequence.default.catch"
 CLEANER_ACTION_MOVE   = "move.default.mPositionCleaner"
+CLEANER_ACTION_PICK   = "delay.default.waitForCleanerToCatch"
 CLEANER_ACTION_ROTATE = "rotate.default.rPositionCleaner"
 CLEANER_NAME          = "cleaner"
 #BALL_SOUND        = "soundBuffer.default.rolling"
@@ -50,6 +51,8 @@ class CleanerImpl(object):
         print "Cleaner.onFinish", key, value
 #        self.c.set("$SOUND.state", "stop")
 #        self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
+    def onPicking(self, key, value):
+        self.c.report("$CLEANER.$SCENE.$CLEANER.picking", value[0])
 
 class Cleaner(object):
     def __init__(self, sceneName, nodeName, env):
@@ -63,12 +66,17 @@ class Cleaner(object):
         self.c.setConst("NODE",    nodeName)
         self.c.setConst("CATCH",   CLEANER_ACTION)
         self.c.setConst("MOVE",    CLEANER_ACTION_MOVE)
+        self.c.setConst("PICK",    CLEANER_ACTION_PICK)
         self.c.setConst("ROTATE",  CLEANER_ACTION_ROTATE)
         #self.c.setConst("SOUND", BALL_SOUND)
-        # Provide "orientation".
+        # Provide "catch".
         self.c.provide("$CLEANER.$SCENE.$CLEANER.catch", self.impl.setCatch)
-        # Listen to action finish.
-        self.c.listen("$ORIENT.$SCENE.$NODE.active", "0", self.impl.onFinish)
+        # Provide "picking".
+        self.c.provide("$CLEANER.$SCENE.$CLEANER.picking")
+        # Listen to catch action finish.
+        self.c.listen("$CATCH.$SCENE.$NODE.active", "0", self.impl.onFinish)
+        # Listen to picking action.
+        self.c.listen("$PICK.$SCENE.$NODE.active", None, self.impl.onPicking)
     def __del__(self):
         # Tear down.
         self.c.clear()

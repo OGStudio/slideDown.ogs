@@ -15,11 +15,17 @@ class MainImpl(object):
         # Create.
         self.currentLevel  = None
         self.intialBallPos = None
+        self.ballIsAccessible = False
+        self.cleanerIsPicking = False
     def __del__(self):
         # Derefer.
         self.c = None
     def onBallAccessible(self, key, value):
-        print "onBallAccessible", key, value
+        self.ballIsAccessible = (value[0] == "1")
+        self.tryToCatch()
+    def onCleanerPicking(self, key, value):
+        self.cleanerIsPicking = (value[0] == "1")
+        self.tryToCatch()
     def onBallStopped(self, key, value):
         self.step()
     def onFinishedLoading(self, key, value):
@@ -40,6 +46,11 @@ class MainImpl(object):
         self.c.set("node.$SCENE.$BALL.parent",   levelName)
         self.c.set("node.$SCENE.$BALL.position", self.initialBallPos)
         self.c.set("$BALL.$SCENE.$BALL.moving", "1")
+    def tryToCatch(self):
+        if (self.ballIsAccessible and
+            self.cleanerIsPicking):
+            print "catched the ball"
+
 
 class Main(object):
     def __init__(self, sceneName, nodeName, env):
@@ -58,6 +69,8 @@ class Main(object):
         self.c.listen("$BALL.$SCENE.$BALL.accessible", None, self.impl.onBallAccessible)
         # Listen to track selections.
         self.c.listen("node.$SCENE..selected", "1", self.impl.onTrackSelection)
+        # Listen to cleaner picking.
+        self.c.listen("$CLEANER.$SCENE.$CLEANER.picking", None, self.impl.onCleanerPicking)
         print "{0} Main.__init__({1}, {2})".format(id(self), sceneName, nodeName)
     def __del__(self):
         # Tear down.
