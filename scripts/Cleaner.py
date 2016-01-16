@@ -1,11 +1,10 @@
 
 from pymjin2 import *
 
-CLEANER_ACTION        = "spawn.default.orientCleaner"
-CLEANER_ACTION_MOVE   = "move.default.moveCleaner"
-CLEANER_ACTION_ROTATE = "rotate.default.rotateCleaner"
+CLEANER_ACTION        = "sequence.default.catch"
+CLEANER_ACTION_MOVE   = "move.default.mPositionCleaner"
+CLEANER_ACTION_ROTATE = "rotate.default.rPositionCleaner"
 CLEANER_NAME          = "cleaner"
-CLEANER_SPEED         = "5000"
 #BALL_SOUND        = "soundBuffer.default.rolling"
 
 class CleanerImpl(object):
@@ -15,21 +14,16 @@ class CleanerImpl(object):
         # Create.
         self.isMoving = False
         self.orientation = ""
+        self.speed = None
     def __del__(self):
         # Derefer.
         self.c = None
-    def onFinish(self, key, value):
-        self.isMoving = False
-        print "Cleaner.onFinish", key, value
-#        self.c.set("$SOUND.state", "stop")
-#        self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
-    def setOrientation(self, key, value):
+    def setCatch(self, key, value):
         if (self.isMoving):
             return
         if (self.orientation == value[0]):
             return
         self.orientation = value[0]
-        print "setOrientation", key, value
         self.isMoving = True
         self.c.setConst("POINT", value[0])
         # Position
@@ -37,19 +31,25 @@ class CleanerImpl(object):
         ppos = pos.split(" ")
         pos = self.c.get("node.$SCENE.$CLEANER.position")[0]
         cpos = pos.split(" ")
-        print "ppos", ppos
-        print "cpos", cpos
-        pos = " {0} {1} {2}".format(cpos[0], cpos[1], ppos[2])
-        print "finalPos", pos
+        pos = "{0} {1} {2}".format(cpos[0], cpos[1], ppos[2])
+        # Get speed from the actions' setup.
+        if (not self.speed):
+            p = self.c.get("$MOVE.point")
+            self.speed = p[0].split(" ")[0]
         # Rotation.
         rot = self.c.get("node.$SCENE.$POINT.rotationAbs")[0]
         # Setup action points.
-        self.c.set("$ROTATE.point", CLEANER_SPEED + " " + rot)
+        self.c.set("$ROTATE.point", self.speed + " " + rot)
         # Only position height.
-        self.c.set("$MOVE.point",   CLEANER_SPEED + pos)
+        self.c.set("$MOVE.point",   self.speed + " " + pos)
         # Start the action.
-        self.c.set("$ORIENT.$SCENE.$NODE.active", "1")
+        self.c.set("$CATCH.$SCENE.$NODE.active", "1")
         #self.c.set("$SOUND.state", "play")
+    def onFinish(self, key, value):
+        self.isMoving = False
+        print "Cleaner.onFinish", key, value
+#        self.c.set("$SOUND.state", "stop")
+#        self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
 
 class Cleaner(object):
     def __init__(self, sceneName, nodeName, env):
@@ -61,13 +61,12 @@ class Cleaner(object):
         self.c.setConst("CLEANER", CLEANER_NAME)
         self.c.setConst("SCENE",   sceneName)
         self.c.setConst("NODE",    nodeName)
-        self.c.setConst("ORIENT",  CLEANER_ACTION)
+        self.c.setConst("CATCH",   CLEANER_ACTION)
         self.c.setConst("MOVE",    CLEANER_ACTION_MOVE)
         self.c.setConst("ROTATE",  CLEANER_ACTION_ROTATE)
         #self.c.setConst("SOUND", BALL_SOUND)
         # Provide "orientation".
-        self.c.provide("$CLEANER.$SCENE.$CLEANER.orientation",
-                       self.impl.setOrientation)
+        self.c.provide("$CLEANER.$SCENE.$CLEANER.catch", self.impl.setCatch)
         # Listen to action finish.
         self.c.listen("$ORIENT.$SCENE.$NODE.active", "0", self.impl.onFinish)
     def __del__(self):

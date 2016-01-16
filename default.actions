@@ -1,3 +1,7 @@
+delay
+    default
+        waitForCleanerToCatch
+            delay = 1000
 move
     default
         moveTopForward
@@ -8,9 +12,16 @@ move
             point = 2000 -2 0 -0.4
         moveBottomForward
             point = 0 0 0 0
-            point = 800 -1 0 0
-        moveCleaner
+            point = 240 -0.3 0 0
+        moveBottomForwardCatch
+            point = 0 0 0 0
+            point = 320 -0.4 0 0
+        mPositionCleaner
             relative = 0
+            point = 5000 0 0 0
+        mReturnCleaner
+            relative = 0
+            point = 5000 0 0 0
 rotate
     default
         rotateTopForward
@@ -21,9 +32,16 @@ rotate
             point = 2000 0 -475 0
         rotateBottomForward
             point = 0 0 0 0
-            point = 800 0 -190 0
-        rotateCleaner
+            point = 240 0 -57 0
+        rotateBottomForwardCatch
+            point = 0 0 0 0
+            point = 320 0 -76 0
+        rPositionCleaner
             relative = 0
+            point = 5000 0 0 0
+        rReturnCleaner
+            relative = 0
+            point = 5000 0 0 145
 spawn
     default
         topForward
@@ -35,14 +53,26 @@ spawn
         bottomForward
             action = move.moveBottomForward
             action = rotate.rotateBottomForward
-        orientCleaner
-            action = move.moveCleaner
-            action = rotate.rotateCleaner
+        bottomForwardCatch
+            action = move.moveBottomForwardCatch
+            action = rotate.rotateBottomForwardCatch
+        positionCleaner
+            action = move.mPositionCleaner
+            action = rotate.rPositionCleaner
+        returnCleaner
+            action = move.mReturnCleaner
+            action = rotate.rReturnCleaner
 sequence
     default
         track
             action = spawn.topForward
             action = spawn.slide
             action = spawn.bottomForward
+            action = spawn.bottomForwardCatch
+            action = spawn.bottomForward
             action = spawn.slide
             action = spawn.topForward
+        catch
+            action = spawn.positionCleaner
+            action = delay.waitForCleanerToCatch
+            action = spawn.returnCleaner

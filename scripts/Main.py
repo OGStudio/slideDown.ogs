@@ -18,6 +18,8 @@ class MainImpl(object):
     def __del__(self):
         # Derefer.
         self.c = None
+    def onBallAccessible(self, key, value):
+        print "onBallAccessible", key, value
     def onBallStopped(self, key, value):
         self.step()
     def onFinishedLoading(self, key, value):
@@ -27,7 +29,7 @@ class MainImpl(object):
         self.step()
     def onTrackSelection(self, key, value):
         id = key[2].replace(MAIN_TRACK_NAME, "")
-        self.c.set("$CLEANER.$SCENE.$CLEANER.orientation", MAIN_POINT_NAME + id)
+        self.c.set("$CLEANER.$SCENE.$CLEANER.catch", MAIN_POINT_NAME + id)
     def step(self):
         self.currentLevel = self.currentLevel + 1
         if (self.currentLevel > MAIN_LEVELS_NB):
@@ -52,6 +54,8 @@ class Main(object):
         self.c.listen("scene.opened", None, self.impl.onFinishedLoading)
         # Listen to ball motion finish.
         self.c.listen("$BALL.$SCENE.$BALL.moving", "0", self.impl.onBallStopped)
+        # Listen to ball accessibility.
+        self.c.listen("$BALL.$SCENE.$BALL.accessible", None, self.impl.onBallAccessible)
         # Listen to track selections.
         self.c.listen("node.$SCENE..selected", "1", self.impl.onTrackSelection)
         print "{0} Main.__init__({1}, {2})".format(id(self), sceneName, nodeName)
