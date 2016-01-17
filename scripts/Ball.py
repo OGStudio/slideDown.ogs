@@ -22,9 +22,11 @@ class BallImpl(object):
         self.c.set("$SOUND.state", "stop")
         self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
     def setMoving(self, key, value):
-        self.isMoving = True
-        self.c.set("$TRACK.$SCENE.$NODE.active", "1")
-        self.c.set("$SOUND.state", "play")
+        self.isMoving = (value[0] == "1")
+        self.c.set("$TRACK.$SCENE.$NODE.active",
+                   "1" if self.isMoving else "0")
+        self.c.set("$SOUND.state",
+                   "play" if self.isMoving else "stop")
 
 class Ball(object):
     def __init__(self, sceneName, nodeName, env):

@@ -17,6 +17,7 @@ class MainImpl(object):
         self.intialBallPos = None
         self.ballIsAccessible = False
         self.cleanerIsPicking = False
+        self.ballIsCatched    = False
     def __del__(self):
         # Derefer.
         self.c = None
@@ -27,7 +28,10 @@ class MainImpl(object):
         self.cleanerIsPicking = (value[0] == "1")
         self.tryToCatch()
     def onBallStopped(self, key, value):
-        self.step()
+        # Only proceed if this is a normal ball rolling.
+        # If it has been catched, don't proceed.
+        if (not self.ballIsCatched):
+            self.step()
     def onFinishedLoading(self, key, value):
         print "Starting the game"
         self.initialBallPos = self.c.get("node.$SCENE.$BALL.position")[0]
@@ -41,7 +45,7 @@ class MainImpl(object):
         if (self.currentLevel > MAIN_LEVELS_NB):
             print "The ball has stopped, no more levels to go"
             return
-        #print "Moving the ball down the level", self.currentLevel
+        print "Moving the ball down the level", self.currentLevel
         levelName = MAIN_LEVEL_NAME + str(self.currentLevel)
         self.c.set("node.$SCENE.$BALL.parent",   levelName)
         self.c.set("node.$SCENE.$BALL.position", self.initialBallPos)
@@ -50,6 +54,9 @@ class MainImpl(object):
         if (self.ballIsAccessible and
             self.cleanerIsPicking):
             print "catched the ball"
+            self.ballIsCatched = True
+            # Stop the ball.
+            self.c.set("$BALL.$SCENE.$BALL.moving", "0")
 
 
 class Main(object):
