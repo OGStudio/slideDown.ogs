@@ -13,20 +13,24 @@ class MainImpl(object):
         # Refer.
         self.c = client
         # Create.
-        self.currentLevel  = None
-        self.intialBallPos = None
-        self.ballIsAccessible = False
-        self.cleanerIsPicking = False
+        self.currentLevel     = None
+        self.intialBallPos    = None
+        self.ballAvailability = None
+        self.cleanerPicking   = None
         self.ballIsCatched    = False
     def __del__(self):
         # Derefer.
         self.c = None
     def onBallAccessible(self, key, value):
-        self.ballIsAccessible = (value[0] == "1")
-        self.tryToCatch()
+        val = self.currentLevel if value[0] == "1" else None
+        self.ballAvailability = val
+        if (self.ballAvailability is not None):
+            self.tryToCatch()
     def onCleanerPicking(self, key, value):
-        self.cleanerIsPicking = (value[0] == "1")
-        self.tryToCatch()
+        val = value[0] if (len(value[0])) else None
+        self.cleanerPicking = val
+        if (self.cleanerPicking is not None):
+            self.tryToCatch()
     def onBallStopped(self, key, value):
         # Only proceed if this is a normal ball rolling.
         # If it has been catched, don't proceed.
@@ -51,12 +55,13 @@ class MainImpl(object):
         self.c.set("node.$SCENE.$BALL.position", self.initialBallPos)
         self.c.set("$BALL.$SCENE.$BALL.moving", "1")
     def tryToCatch(self):
-        if (self.ballIsAccessible and
-            self.cleanerIsPicking):
-            print "catched the ball"
-            self.ballIsCatched = True
-            # Stop the ball.
-            self.c.set("$BALL.$SCENE.$BALL.moving", "0")
+        if ((self.ballAvailability is not None) and
+            (self.cleanerPicking is not None)):
+            if (self.cleanerPicking.endswith(str(self.ballAvailability))):
+                print "catched the ball at point", self.ballAvailability
+                self.ballIsCatched = True
+                # Stop the ball.
+                self.c.set("$BALL.$SCENE.$BALL.moving", "0")
 
 
 class Main(object):

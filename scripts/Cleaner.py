@@ -22,8 +22,6 @@ class CleanerImpl(object):
     def setCatch(self, key, value):
         if (self.isMoving):
             return
-        if (self.orientation == value[0]):
-            return
         self.orientation = value[0]
         self.isMoving = True
         self.c.setConst("POINT", value[0])
@@ -52,7 +50,8 @@ class CleanerImpl(object):
 #        self.c.set("$SOUND.state", "stop")
 #        self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
     def onPicking(self, key, value):
-        self.c.report("$CLEANER.$SCENE.$CLEANER.picking", value[0])
+        val = self.orientation if value[0] == "1" else ""
+        self.c.report("$CLEANER.$SCENE.$CLEANER.picking", val)
 
 class Cleaner(object):
     def __init__(self, sceneName, nodeName, env):
