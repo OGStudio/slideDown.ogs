@@ -62,7 +62,8 @@ class MainImpl(object):
                 self.ballIsCatched = True
                 # Stop the ball.
                 self.c.set("$BALL.$SCENE.$BALL.moving", "0")
-
+                # Swallow it.
+                self.c.set("$CLEANER.$SCENE.$CLEANER.swallow", MAIN_BALL_NAME)
 
 class Main(object):
     def __init__(self, sceneName, nodeName, env):

@@ -22,9 +22,9 @@ move
         mReturnCleaner
             relative = 0
             point = 5000 0 0 0
-        pickTheBall
+        swallowBall
             relative = 0
-            point = 100 0 0 0
+            point = 200 0 0 0
 rotate
     default
         rotateTopForward
