@@ -2,6 +2,7 @@
 from pymjin2 import *
 
 MAIN_BALL_NAME    = "ball"
+MAIN_BALLS_NB     = 8
 MAIN_CLEANER_NAME = "cleaner"
 MAIN_LEVEL_NAME   = "level"
 MAIN_LEVELS_NB    = 8
@@ -18,6 +19,8 @@ class MainImpl(object):
         self.ballAvailability = None
         self.cleanerPicking   = None
         self.ballIsCatched    = False
+        self.ballsLeft        = MAIN_BALLS_NB
+        self.ballsCatched     = 0
     def __del__(self):
         # Derefer.
         self.c = None
@@ -37,15 +40,10 @@ class MainImpl(object):
         if (not self.ballIsCatched):
             self.step()
     def onCleanerSwallow(self, key, value):
-        print "onCleanerSwallow", key, value
         # Finished swallowing. Restart the ball sequence.
         if (value[0] == ""):
-            print "Restarting the ball sequence"
-            self.ballAvailability = None
-            self.cleanerPicking = None
-            self.ballIsCatched = False
-            self.currentLevel = 0
-            self.step()
+            if (self.processBall()):
+                self.restartBallSequence()
     def onFinishedLoading(self, key, value):
         print "Starting the game"
         self.initialBallPos = self.c.get("node.$SCENE.$BALL.position")[0]
@@ -61,12 +59,34 @@ class MainImpl(object):
         self.c.set("$BALL.$SCENE.$BALL.moving", "0")
         # Swallow it.
         self.c.set("$CLEANER.$SCENE.$CLEANER.swallow", MAIN_BALL_NAME)
+    def processBall(self):
+        self.ballsLeft = self.ballsLeft - 1
+        print "Balls left:", self.ballsLeft
+        if (self.ballsLeft < 1):
+            print "No more balls to catch. The game is over"
+            print "Stats: balls catched / overall: {0} / {1}".format(self.ballsCatched,
+                                                                     MAIN_BALLS_NB)
+            if (self.ballsCatched == MAIN_BALLS_NB):
+                print "YOU WON"
+            else:
+                print "YOU LOST"
+            return False
+        return True
+    def restartBallSequence(self):
+        #print "Restarting the ball sequence"
+        self.ballAvailability = None
+        self.cleanerPicking = None
+        self.ballIsCatched = False
+        self.currentLevel = 0
+        self.step()
     def step(self):
         self.currentLevel = self.currentLevel + 1
         if (self.currentLevel > MAIN_LEVELS_NB):
-            print "The ball has stopped, no more levels to go"
+            #print "The ball has stopped, no more levels to go"
+            if (self.processBall()):
+                self.restartBallSequence()
             return
-        print "Moving the ball down the level", self.currentLevel
+        #print "Moving the ball down the level", self.currentLevel
         levelName = MAIN_LEVEL_NAME + str(self.currentLevel)
         self.c.set("node.$SCENE.$BALL.parent",   levelName)
         self.c.set("node.$SCENE.$BALL.position", self.initialBallPos)
@@ -75,8 +95,11 @@ class MainImpl(object):
         if ((self.ballAvailability is not None) and
             (self.cleanerPicking is not None)):
             if (self.cleanerPicking.endswith(str(self.ballAvailability))):
-                print "catched the ball at point", self.ballAvailability
                 self.performCatch()
+                self.ballsCatched = self.ballsCatched + 1
+                #print "catched the ball at point {0}. ".format(self.ballAvailability)
+                print "Balls catched / left: {0} / {1}".format(self.ballsCatched,
+                                                               self.ballsLeft)
 
 class Main(object):
     def __init__(self, sceneName, nodeName, env):

@@ -57,12 +57,11 @@ class CleanerImpl(object):
         self.c.set("$CATCH.$SCENE.$NODE.active", "1")
         #self.c.set("$SOUND.state", "play")
     def setSwallow(self, key, value):
-        print "setSwallow", key, value
         # Get speed from the actions' setup.
         if (self.swallowSpeed is None):
             p = self.c.get("$SWALLOW.point")
             self.swallowSpeed = p[0].split(" ")[0]
-        print "speed", self.swallowSpeed
+        #print "speed", self.swallowSpeed
         self.c.setConst("BALL", value[0])
         # Ball position.
         bpos = self.c.get("node.$SCENE.$BALL.positionAbs")[0]
