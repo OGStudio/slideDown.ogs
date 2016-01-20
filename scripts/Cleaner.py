@@ -23,7 +23,7 @@ class CleanerImpl(object):
         self.c = None
     def onFinish(self, key, value):
         self.isMoving = False
-        print "Cleaner.onFinish", key, value
+#        print "Cleaner.onFinish", key, value
 #        self.c.set("$SOUND.state", "stop")
 #        self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
     def onPicking(self, key, value):

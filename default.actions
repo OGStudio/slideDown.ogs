@@ -4,6 +4,9 @@ delay
             delay = 1000
 move
     default
+        moveBeforeCatch
+            point = 0 0 0 0
+            point = 1000 -2.8 0 -0.4
         moveTopForward
             point = 0 0 0 0
             point = 400 -0.5 0 0
@@ -47,6 +50,8 @@ rotate
             point = 5000 0 0 145
 spawn
     default
+        beforeCatch
+            action = move.moveBeforeCatch
         topForward
             action = move.moveTopForward
             action = rotate.rotateTopForward
@@ -68,20 +73,22 @@ spawn
 sequence
     default
         track
-            action = move.moveTopForward
-            action = move.moveSlide
-            action = move.moveBottomForward
-            action = move.moveBottomForwardCatch
+#            action = move.moveBeforeCatch
+#            action = move.moveTopForward
+#            action = move.moveSlide
+#            action = move.moveBottomForward
+#            action = move.moveBottomForwardCatch
 #            action = move.moveSlide
 #            action = move.moveTopForward
-#            action = spawn.topForward
-#            action = spawn.slide
-#            action = spawn.bottomForward
-#            action = spawn.bottomForwardCatch
-#            action = spawn.bottomForward
-#            action = spawn.slide
-#            action = spawn.topForward
+#            action = spawn.beforeCatch
+            action = spawn.topForward
+            action = spawn.slide
+            action = spawn.bottomForward
+            action = spawn.bottomForwardCatch
+            action = spawn.bottomForward
+            action = spawn.slide
+            action = spawn.topForward
         catch
-#            action = spawn.positionCleaner
+            action = spawn.positionCleaner
             action = delay.waitForCleanerToCatch
-#            action = spawn.returnCleaner
+            action = spawn.returnCleaner
