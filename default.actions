@@ -68,14 +68,20 @@ spawn
 sequence
     default
         track
-            action = spawn.topForward
-            action = spawn.slide
-            action = spawn.bottomForward
-            action = spawn.bottomForwardCatch
-            action = spawn.bottomForward
-            action = spawn.slide
-            action = spawn.topForward
+            action = move.moveTopForward
+            action = move.moveSlide
+            action = move.moveBottomForward
+            action = move.moveBottomForwardCatch
+#            action = move.moveSlide
+#            action = move.moveTopForward
+#            action = spawn.topForward
+#            action = spawn.slide
+#            action = spawn.bottomForward
+#            action = spawn.bottomForwardCatch
+#            action = spawn.bottomForward
+#            action = spawn.slide
+#            action = spawn.topForward
         catch
-            action = spawn.positionCleaner
+#            action = spawn.positionCleaner
             action = delay.waitForCleanerToCatch
-            action = spawn.returnCleaner
+#            action = spawn.returnCleaner

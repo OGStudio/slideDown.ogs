@@ -2,7 +2,8 @@
 from pymjin2 import *
 
 BALL_TYPE          = "ball"
-BALL_ACTION_ACCESS = "spawn.default.bottomForwardCatch"
+#BALL_ACTION_ACCESS = "spawn.default.bottomForwardCatch"
+BALL_ACTION_ACCESS = "move.default.moveBottomForwardCatch"
 BALL_ACTION_TRACK  = "sequence.default.track"
 BALL_SOUND         = "soundBuffer.default.rolling"
 

@@ -36,6 +36,16 @@ class MainImpl(object):
         # If it has been catched, don't proceed.
         if (not self.ballIsCatched):
             self.step()
+    def onCleanerSwallow(self, key, value):
+        print "onCleanerSwallow", key, value
+        # Finished swallowing. Restart the ball sequence.
+        if (value[0] == ""):
+            print "Restarting the ball sequence"
+            self.ballAvailability = None
+            self.cleanerPicking = None
+            self.ballIsCatched = False
+            self.currentLevel = 0
+            self.step()
     def onFinishedLoading(self, key, value):
         print "Starting the game"
         self.initialBallPos = self.c.get("node.$SCENE.$BALL.position")[0]
@@ -44,6 +54,13 @@ class MainImpl(object):
     def onTrackSelection(self, key, value):
         id = key[2].replace(MAIN_TRACK_NAME, "")
         self.c.set("$CLEANER.$SCENE.$CLEANER.catch", MAIN_POINT_NAME + id)
+        #self.performCatch()
+    def performCatch(self):
+        self.ballIsCatched = True
+        # Stop the ball.
+        self.c.set("$BALL.$SCENE.$BALL.moving", "0")
+        # Swallow it.
+        self.c.set("$CLEANER.$SCENE.$CLEANER.swallow", MAIN_BALL_NAME)
     def step(self):
         self.currentLevel = self.currentLevel + 1
         if (self.currentLevel > MAIN_LEVELS_NB):
@@ -59,11 +76,7 @@ class MainImpl(object):
             (self.cleanerPicking is not None)):
             if (self.cleanerPicking.endswith(str(self.ballAvailability))):
                 print "catched the ball at point", self.ballAvailability
-                self.ballIsCatched = True
-                # Stop the ball.
-                self.c.set("$BALL.$SCENE.$BALL.moving", "0")
-                # Swallow it.
-                self.c.set("$CLEANER.$SCENE.$CLEANER.swallow", MAIN_BALL_NAME)
+                self.performCatch()
 
 class Main(object):
     def __init__(self, sceneName, nodeName, env):
@@ -84,6 +97,8 @@ class Main(object):
         self.c.listen("node.$SCENE..selected", "1", self.impl.onTrackSelection)
         # Listen to cleaner picking.
         self.c.listen("$CLEANER.$SCENE.$CLEANER.picking", None, self.impl.onCleanerPicking)
+        # Listen to cleaner swallow.
+        self.c.listen("$CLEANER.$SCENE.$CLEANER.swallow", "", self.impl.onCleanerSwallow)
         print "{0} Main.__init__({1}, {2})".format(id(self), sceneName, nodeName)
     def __del__(self):
         # Tear down.

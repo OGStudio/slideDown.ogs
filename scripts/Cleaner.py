@@ -29,6 +29,8 @@ class CleanerImpl(object):
     def onPicking(self, key, value):
         val = self.orientation if value[0] == "1" else ""
         self.c.report("$CLEANER.$SCENE.$CLEANER.picking", val)
+    def onSwallowed(self, key, value):
+        self.c.report("$CLEANER.$SCENE.$CLEANER.swallow", "")
     def setCatch(self, key, value):
         if (self.isMoving):
             return
@@ -103,6 +105,8 @@ class Cleaner(object):
         self.c.listen("$CATCH.$SCENE.$NODE.active", "0", self.impl.onFinish)
         # Listen to picking action.
         self.c.listen("$PICK.$SCENE.$NODE.active", None, self.impl.onPicking)
+        # Listen to swallow action.
+        self.c.listen("$SWALLOW.$SCENE..active", "0", self.impl.onSwallowed)
     def __del__(self):
         # Tear down.
         self.c.clear()
