@@ -1,5 +1,7 @@
 delay
     default
+        readyToCatch
+            delay = 3500
         waitForCleanerToCatch
             delay = 500
 move
@@ -21,10 +23,10 @@ move
             point = 320 -0.4 0 0
         mPositionCleaner
             relative = 0
-            point = 3000 0 0 0
+            point = 4000 0 0 0
         mReturnCleaner
             relative = 0
-            point = 3000 0 0 0
+            point = 4000 0 0 0
         swallowBall
             relative = 0
             point = 150 0 0 0
@@ -44,10 +46,10 @@ rotate
             point = 320 0 -76 0
         rPositionCleaner
             relative = 0
-            point = 5000 0 0 0
+            point = 4000 0 0 0
         rReturnCleaner
             relative = 0
-            point = 5000 0 0 145
+            point = 4000 0 0 145
 spawn
     default
         beforeCatch
@@ -67,6 +69,7 @@ spawn
         positionCleaner
             action = move.mPositionCleaner
             action = rotate.rPositionCleaner
+            action = delay.readyToCatch
         returnCleaner
             action = move.mReturnCleaner
             action = rotate.rReturnCleaner

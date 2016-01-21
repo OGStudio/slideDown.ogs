@@ -1,12 +1,15 @@
 
 from pymjin2 import *
 
-CLEANER_ACTION         = "sequence.default.catch"
-CLEANER_ACTION_MOVE    = "move.default.mPositionCleaner"
-CLEANER_ACTION_PICK    = "delay.default.waitForCleanerToCatch"
-CLEANER_ACTION_ROTATE  = "rotate.default.rPositionCleaner"
-CLEANER_ACTION_SWALLOW = "move.default.swallowBall"
-CLEANER_NAME           = "cleaner"
+CLEANER_ACTION            = "sequence.default.catch"
+CLEANER_ACTION_MOVE       = "move.default.mPositionCleaner"
+CLEANER_ACTION_PICK       = "delay.default.waitForCleanerToCatch"
+CLEANER_ACTION_PICK_SOUND = "delay.default.readyToCatch"
+CLEANER_ACTION_ROTATE     = "rotate.default.rPositionCleaner"
+CLEANER_ACTION_SWALLOW    = "move.default.swallowBall"
+CLEANER_NAME              = "cleaner"
+CLEANER_BALL_FINAL_POS    = "0 0 10"
+CLEANER_SOUND_PICK        = "soundBuffer.default.cleaner"
 #BALL_SOUND        = "soundBuffer.default.rolling"
 
 class CleanerImpl(object):
@@ -27,10 +30,13 @@ class CleanerImpl(object):
 #        self.c.set("$SOUND.state", "stop")
 #        self.c.report("$TYPE.$SCENE.$NODE.moving", "0")
     def onPicking(self, key, value):
-        val = self.orientation if value[0] == "1" else ""
+        start = (value[0] == "1")
+        val = self.orientation if start else ""
         self.c.report("$CLEANER.$SCENE.$CLEANER.picking", val)
     def onSwallowed(self, key, value):
         self.c.report("$CLEANER.$SCENE.$CLEANER.swallow", "")
+    def onSwallowSound(self, key, value):
+        self.c.set("$SNDPICK.state", "play")
     def setCatch(self, key, value):
         if (self.isMoving):
             return
@@ -74,6 +80,7 @@ class CleanerImpl(object):
         points = []
         points.append("0 " + bpos)
         points.append(self.swallowSpeed + " " + cpos)
+        points.append("0 " + CLEANER_BALL_FINAL_POS)
         self.c.set("$SWALLOW.point", points)
         # Start the action.
         self.c.set("$SWALLOW.$SCENE.$BALL.active", "1")
@@ -85,14 +92,16 @@ class Cleaner(object):
         self.c    = EnvironmentClient(env, name)
         self.impl = CleanerImpl(self.c)
         # Prepare.
-        self.c.setConst("CLEANER", CLEANER_NAME)
-        self.c.setConst("SCENE",   sceneName)
-        self.c.setConst("NODE",    nodeName)
-        self.c.setConst("CATCH",   CLEANER_ACTION)
-        self.c.setConst("MOVE",    CLEANER_ACTION_MOVE)
-        self.c.setConst("PICK",    CLEANER_ACTION_PICK)
-        self.c.setConst("ROTATE",  CLEANER_ACTION_ROTATE)
-        self.c.setConst("SWALLOW", CLEANER_ACTION_SWALLOW)
+        self.c.setConst("CLEANER",  CLEANER_NAME)
+        self.c.setConst("SCENE",    sceneName)
+        self.c.setConst("NODE",     nodeName)
+        self.c.setConst("CATCH",    CLEANER_ACTION)
+        self.c.setConst("MOVE",     CLEANER_ACTION_MOVE)
+        self.c.setConst("PICK",     CLEANER_ACTION_PICK)
+        self.c.setConst("ROTATE",   CLEANER_ACTION_ROTATE)
+        self.c.setConst("SWALLOW",  CLEANER_ACTION_SWALLOW)
+        self.c.setConst("SNDPICK",  CLEANER_SOUND_PICK)
+        self.c.setConst("SNDCATCH", CLEANER_ACTION_PICK_SOUND)
         #self.c.setConst("SOUND", BALL_SOUND)
         # Provide "catch".
         self.c.provide("$CLEANER.$SCENE.$CLEANER.catch", self.impl.setCatch)
@@ -106,6 +115,8 @@ class Cleaner(object):
         self.c.listen("$PICK.$SCENE.$NODE.active", None, self.impl.onPicking)
         # Listen to swallow action.
         self.c.listen("$SWALLOW.$SCENE..active", "0", self.impl.onSwallowed)
+        # Listen to swallow sound signalling action.
+        self.c.listen("$SNDCATCH.$SCENE..active", "0", self.impl.onSwallowSound)
     def __del__(self):
         # Tear down.
         self.c.clear()

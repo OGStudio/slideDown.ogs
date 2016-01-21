@@ -3,3 +3,5 @@ soundBuffer
         rolling
             file = sounds/rolling_ball.ogg
             loop = 1
+        cleaner
+            file = sounds/cleaner.ogg
