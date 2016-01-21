@@ -23,10 +23,10 @@ move
             point = 320 -0.4 0 0
         mPositionCleaner
             relative = 0
-            point = 4000 0 0 0
+            point = 3800 0 0 0
         mReturnCleaner
             relative = 0
-            point = 4000 0 0 0
+            point = 3800 0 0 0
         swallowBall
             relative = 0
             point = 150 0 0 0
@@ -46,10 +46,10 @@ rotate
             point = 320 0 -76 0
         rPositionCleaner
             relative = 0
-            point = 4000 0 0 0
+            point = 3800 0 0 0
         rReturnCleaner
             relative = 0
-            point = 4000 0 0 145
+            point = 3800 0 0 145
 spawn
     default
         beforeCatch

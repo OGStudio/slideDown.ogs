@@ -5,3 +5,5 @@ soundBuffer
             loop = 1
         cleaner
             file = sounds/cleaner.ogg
+        drill
+            file = sounds/drill.ogg
