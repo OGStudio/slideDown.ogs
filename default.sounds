@@ -7,3 +7,5 @@ soundBuffer
             file = sounds/cleaner.ogg
         drill
             file = sounds/drill.ogg
+        selection
+            file = sounds/selection.ogg

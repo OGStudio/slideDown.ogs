@@ -1,13 +1,14 @@
 
 from pymjin2 import *
 
-MAIN_BALL_NAME    = "ball"
-MAIN_BALLS_NB     = 8
-MAIN_CLEANER_NAME = "cleaner"
-MAIN_LEVEL_NAME   = "level"
-MAIN_LEVELS_NB    = 8
-MAIN_POINT_NAME   = "point"
-MAIN_TRACK_NAME   = "track"
+MAIN_BALL_NAME       = "ball"
+MAIN_BALLS_NB        = 8
+MAIN_CLEANER_NAME    = "cleaner"
+MAIN_LEVEL_NAME      = "level"
+MAIN_LEVELS_NB       = 8
+MAIN_POINT_NAME      = "point"
+MAIN_TRACK_NAME      = "track"
+MAIN_SOUND_SELECTION = "soundBuffer.default.selection"
 
 class MainImpl(object):
     def __init__(self, client):
@@ -51,6 +52,7 @@ class MainImpl(object):
         self.step()
     def onTrackSelection(self, key, value):
         id = key[2].replace(MAIN_TRACK_NAME, "")
+        self.c.set("$SNDSELECTION.state", "play")
         self.c.set("$CLEANER.$SCENE.$CLEANER.catch", MAIN_POINT_NAME + id)
         #self.performCatch()
     def performCatch(self):
@@ -107,9 +109,10 @@ class Main(object):
         self.c    = EnvironmentClient(env, "Main")
         self.impl = MainImpl(self.c)
         # Prepare.
-        self.c.setConst("BALL",    MAIN_BALL_NAME)
-        self.c.setConst("CLEANER", MAIN_CLEANER_NAME)
-        self.c.setConst("SCENE",   sceneName)
+        self.c.setConst("BALL",         MAIN_BALL_NAME)
+        self.c.setConst("CLEANER",      MAIN_CLEANER_NAME)
+        self.c.setConst("SCENE",        sceneName)
+        self.c.setConst("SNDSELECTION", MAIN_SOUND_SELECTION)
         # Listen to scene loading finish.
         self.c.listen("scene.opened", None, self.impl.onFinishedLoading)
         # Listen to ball motion finish.
