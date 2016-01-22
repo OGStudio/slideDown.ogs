@@ -51,7 +51,6 @@ node
         point2
             parent = track2
             position = 0.500000 0.000000 0.500000
-            selectable = 1
         level3
             parent = trackLevel1
             position = -5.000000 -6.000000 -1.600000
@@ -69,7 +68,6 @@ node
         point3
             parent = track3
             position = 0.500000 0.000000 0.500000
-            selectable = 1
         level4
             parent = trackLevel1
             position = 0.500000 -5.500000 -2.400000
@@ -87,7 +85,6 @@ node
         point4
             parent = track4
             position = 0.500000 0.000000 0.500000
-            selectable = 1
         trackLevel2
             parent = ROOT
             position = 0.000000 0.000000 -3.200000
@@ -106,7 +103,6 @@ node
         point5
             parent = track5
             position = 0.500000 0.000000 0.500000
-            selectable = 1
         level6
             parent = trackLevel2
             position = -5.500000 -0.500000 -0.800000
@@ -124,7 +120,6 @@ node
         point6
             parent = track6
             position = 0.500000 0.000000 0.500000
-            selectable = 1
         level7
             parent = trackLevel2
             position = -5.000000 -6.000000 -1.600000
@@ -142,7 +137,6 @@ node
         point7
             parent = track7
             position = 0.500000 0.000000 0.500000
-            selectable = 1
         level8
             parent = trackLevel2
             position = 0.500000 -5.500000 -2.400000
@@ -160,7 +154,6 @@ node
         point8
             parent = track8
             position = 0.500000 0.000000 0.500000
-            selectable = 1
         cleanerBase
             parent = ROOT
             position = -2.500000 -3.000000 -0.100000
