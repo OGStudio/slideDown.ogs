@@ -166,31 +166,26 @@ node
             position = -2.500000 -3.000000 -0.100000
             material = cleanerBase
             model = models/cleaner_base.osgt
-            selectable = 1
         cleaner
             parent = cleanerBase
             rotation = 0.000000 0.000000 145.000000
             material = cleaner
             model = models/cleaner.osgt
             script = scripts/Cleaner.py
-            selectable = 1
         incomingPipe
             parent = ROOT
             position = 0.450000 0.000000 6.000000
             rotation = 180.000000 0.000000 90.000000
             material = plain
             model = models/cleaner.osgt
-            selectable = 1
         out1
             parent = ROOT
             position = 0.500000 1.900000 -5.900000
             rotation = -180.000000 0.000000 0.000000
             material = plain
             model = models/cleaner.osgt
-            selectable = 1
         out2
             parent = ROOT
             position = 0.500000 1.920000 -15.949989
             material = plain
             model = models/cleaner.osgt
-            selectable = 1
