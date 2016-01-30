@@ -30,6 +30,9 @@ move
         swallowBall
             relative = 0
             point = 150 0 0 0
+        mStart
+            relative = 0
+            point = 1000 3.179053 -19.330690 4.653551
 rotate
     default
         rotateTopForward
@@ -50,6 +53,9 @@ rotate
         rReturnCleaner
             relative = 0
             point = 3800 0 0 145
+        rStart
+            relative = 0
+            point = 1000 65.400223 0.000000 18.099953
 spawn
     default
         beforeCatch
@@ -73,6 +79,9 @@ spawn
         returnCleaner
             action = move.mReturnCleaner
             action = rotate.rReturnCleaner
+        start
+            action = move.mStart
+            action = rotate.rStart
 sequence
     default
         track

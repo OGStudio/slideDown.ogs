@@ -9,6 +9,10 @@ MAIN_LEVELS_NB       = 8
 MAIN_POINT_NAME      = "point"
 MAIN_TRACK_NAME      = "track"
 MAIN_SOUND_SELECTION = "soundBuffer.default.selection"
+# Hard coded values. Ugly. Should be a separate component.
+MAIN_START_ACTION    = "spawn.default.start"
+MAIN_START_CAMERA    = "camera"
+MAIN_START_SOUND     = "soundBuffer.default.start"
 
 class MainImpl(object):
     def __init__(self, client):
@@ -22,6 +26,7 @@ class MainImpl(object):
         self.ballIsCatched    = False
         self.ballsLeft        = MAIN_BALLS_NB
         self.ballsCatched     = 0
+        self.introIsOn         = False
     def __del__(self):
         # Derefer.
         self.c = None
@@ -45,11 +50,18 @@ class MainImpl(object):
         if (value[0] == ""):
             if (self.processBall()):
                 self.restartBallSequence()
-    def onFinishedLoading(self, key, value):
+    def onGameStart(self, key, value):
         print "Starting the game"
         self.initialBallPos = self.c.get("node.$SCENE.$BALL.position")[0]
         self.currentLevel = 0
         self.step()
+    def onIntroStart(self, key, value):
+        if (self.introIsOn):
+            return
+        self.introIsOn = True
+        # Start the 'start' action.
+        self.c.set("$START.$SCENE.$CAMERA.active", "1")
+        self.c.set("$SNDSTART.state", "play")
     def onTrackSelection(self, key, value):
         id = key[2].replace(MAIN_TRACK_NAME, "")
         self.c.set("$SNDSELECTION.state", "play")
@@ -113,8 +125,10 @@ class Main(object):
         self.c.setConst("CLEANER",      MAIN_CLEANER_NAME)
         self.c.setConst("SCENE",        sceneName)
         self.c.setConst("SNDSELECTION", MAIN_SOUND_SELECTION)
-        # Listen to scene loading finish.
-        self.c.listen("scene.opened", None, self.impl.onFinishedLoading)
+        # Ugly hard coded values.
+        self.c.setConst("START",        MAIN_START_ACTION)
+        self.c.setConst("CAMERA",       MAIN_START_CAMERA)
+        self.c.setConst("SNDSTART",     MAIN_START_SOUND)
         # Listen to ball motion finish.
         self.c.listen("$BALL.$SCENE.$BALL.moving", "0", self.impl.onBallStopped)
         # Listen to ball accessibility.
@@ -125,6 +139,10 @@ class Main(object):
         self.c.listen("$CLEANER.$SCENE.$CLEANER.picking", None, self.impl.onCleanerPicking)
         # Listen to cleaner swallow.
         self.c.listen("$CLEANER.$SCENE.$CLEANER.swallow", "", self.impl.onCleanerSwallow)
+        # Listen to the SPACE key to start the game.
+        self.c.listen("input.SPACE.key", "1", self.impl.onIntroStart)
+        # Listen to the 'start' action finish.
+        self.c.listen("$START.$SCENE.$CAMERA.active", "0", self.impl.onGameStart)
         print "{0} Main.__init__({1}, {2})".format(id(self), sceneName, nodeName)
     def __del__(self):
         # Tear down.

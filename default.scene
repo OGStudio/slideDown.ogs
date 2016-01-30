@@ -8,8 +8,8 @@ node
             script = scripts/Main.py
         camera
             parent = ROOT
-            position = 3.179053 -19.330690 4.653551
-            rotation = 65.400223 0.000000 18.099953
+            position = 0.500000 -0.703594 0.300000
+            rotation = 90.000000 0.000000 0.000000
             script = scripts/CameraSync.py
         ball
             parent = ROOT
@@ -161,7 +161,7 @@ node
             model = models/cleaner_base.osgt
         cleaner
             parent = cleanerBase
-            rotation = 0.000000 0.000000 145.000000
+            rotation = 0.000000 0.000000 144.999985
             material = cleaner
             model = models/cleaner.osgt
             script = scripts/Cleaner.py

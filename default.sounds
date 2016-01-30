@@ -9,3 +9,5 @@ soundBuffer
             file = sounds/drill.ogg
         selection
             file = sounds/selection.ogg
+        start
+            file = sounds/start.ogg
